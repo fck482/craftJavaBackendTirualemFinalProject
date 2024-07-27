@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: Api-GateWay-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: customer-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/auth/customer/v1/**
+        - id: lead-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/auth/leads/v1/**
+        - id: order-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/auth/order/v1/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    instance:
+      hostname: localhost
+
+server:
+  port: 9083
